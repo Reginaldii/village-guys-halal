@@ -51,9 +51,9 @@
   .hero h1 em { color:var(--gold); font-style:normal; display:block; }
   .hero-sub { margin-top:1.2rem; font-size:1rem; font-weight:300; color:var(--muted); line-height:1.7; max-width:480px; }
   .hero-actions { display:flex; gap:1rem; margin-top:2rem; flex-wrap:wrap; }
-  .btn-gold { background:var(--gold); color:var(--black); padding:.85rem 2rem; font-weight:700; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background .2s,transform .15s; box-shadow:0 4px 20px rgba(245,200,66,0.25); }
+  .btn-gold { background:var(--gold); color:var(--black); padding:.85rem 2rem; font-weight:700; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background .2s,transform .15s; box-shadow:0 4px 20px rgba(245,200,66,0.25); display:inline-block; }
   .btn-gold:hover { background:var(--gold-dark); transform:translateY(-2px); }
-  .btn-ghost { background:transparent; color:var(--cream); padding:.85rem 2rem; font-weight:500; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; border:1px solid rgba(250,245,233,0.25); transition:border-color .2s,color .2s; }
+  .btn-ghost { background:transparent; color:var(--cream); padding:.85rem 2rem; font-weight:500; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; border:1px solid rgba(250,245,233,0.25); transition:border-color .2s,color .2s; display:inline-block; }
   .btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
   .hero-stats { display:flex; gap:3rem; margin-top:3rem; padding-top:2rem; border-top:1px solid rgba(250,245,233,0.1); flex-wrap:wrap; }
   .stat-label { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.2rem; }
@@ -104,6 +104,9 @@
   .order-side { display:flex; flex-direction:column; gap:1rem; }
   .order-side h3 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--cream); margin-bottom:.5rem; }
   .order-side p { font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:.5rem; }
+
+  /* ORDER SECTION DIVIDERS */
+  .order-divider { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-top:.5rem; margin-bottom:-.2rem; }
 
   /* FOOTER */
   footer { background:#050505; padding:2rem 3rem 6rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-top:1px solid rgba(245,200,66,0.1); }
@@ -206,7 +209,7 @@
 </div>
 
 <!-- PHOTO GALLERY -->
-<!-- TO ADD PHOTOS: upload food1.jpg, food2.jpg, food3.jpg, food4.jpg to your GitHub repo, they will appear here automatically -->
+<!-- Upload food1.jpg food2.jpg food3.jpg food4.jpg to your GitHub repo and they appear here automatically -->
 <section class="gallery" id="gallery">
   <span class="section-eyebrow fade">Fresh Every Day</span>
   <h2 class="section-title fade">The Food</h2>
@@ -259,20 +262,29 @@
       <span class="day">Monday – Sunday</span>
       <span class="time">11:00 AM – 11:00 PM <span class="open-pill">OPEN</span></span>
     </div>
-    <div style="margin-top:1.5rem; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+    <div style="margin-top:1.5rem; font-size:0.8rem; color:var(--muted); line-height:1.9;">
       📍 5025 Hamilton Blvd, Breinigsville, PA 18031<br>
       Free WiFi · Wheelchair Accessible · Cards Accepted
     </div>
   </div>
   <div class="order-side fade">
     <h3>Ready to Eat?</h3>
-    <p>Order ahead for fast pickup or delivery. Walk-ins always welcome.</p>
+    <p>Order ahead for pickup or delivery. Walk-ins always welcome.</p>
+
+    <span class="order-divider">Call Us</span>
     <a class="btn-gold" href="tel:+16102890159">📞 Call to Order</a>
+
+    <span class="order-divider">Order Online</span>
+    <a class="btn-ghost" href="https://www.doordash.com/store/village-guys-breinigsville-36488923/" target="_blank">🛵 Order on DoorDash</a>
+    <a class="btn-ghost" href="https://www.ubereats.com/store/village-guys-9225-hamilton-blvd/fq5zPbQkXPCaTVHojHMoSQ" target="_blank">🚗 Order on Uber Eats</a>
+    <a class="btn-ghost" href="https://www.grubhub.com/restaurant/village-guys-9225-hamilton-boulevard-breinigsville/12857888" target="_blank">🍱 Order on Grubhub</a>
+
+    <span class="order-divider">Find Us</span>
     <a class="btn-ghost" href="https://maps.google.com/?q=5025+Hamilton+Blvd+Breinigsville+PA+18031" target="_blank">🗺 Get Directions</a>
-    <a class="btn-ghost" href="DOORDASH_LINK" target="_blank">🛵 Order on DoorDash</a>
-    <a class="btn-ghost" href="UBEREATS_LINK" target="_blank">🚗 Order on Uber Eats</a>
-    <a class="btn-ghost" href="GOOGLE_REVIEWS_LINK" target="_blank">⭐ Read Reviews</a>
-    <a class="btn-ghost" href="LEAVE_REVIEW_LINK" target="_blank">✍️ Leave a Review</a>
+
+    <span class="order-divider">Reviews</span>
+    <a class="btn-ghost" href="https://www.yelp.com/biz/village-guys-breinigsville" target="_blank">⭐ Read Reviews on Yelp</a>
+    <a class="btn-ghost" href="https://www.yelp.com/writeareview/biz/village-guys-breinigsville" target="_blank">✍️ Leave a Review</a>
   </div>
 </section>
 
@@ -320,7 +332,7 @@
   }, { threshold: 0.1 });
   fades.forEach(f => obs.observe(f));
 
-  // Sticky bar — show after scrolling past hero
+  // Sticky bar
   const bar = document.getElementById('stickyBar');
   window.addEventListener('scroll', () => {
     bar.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
