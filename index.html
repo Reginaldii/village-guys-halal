@@ -51,7 +51,7 @@
   .hero h1 em { color:var(--gold); font-style:normal; display:block; }
   .hero-sub { margin-top:1.2rem; font-size:1rem; font-weight:300; color:var(--muted); line-height:1.7; max-width:480px; }
   .hero-actions { display:flex; gap:1rem; margin-top:2rem; flex-wrap:wrap; }
-  .btn-gold { background:var(--gold); color:var(--black); padding:.85rem 2rem; font-weight:700; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background .2s,transform .15s; box-shadow:0 4px 20px rgba(245,200,66,0.25); display:inline-block; }
+  .btn-gold { background:var(--gold); color:var(--black); padding:.85rem 2rem; font-weight:700; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background .2s,transform .15s; box-shadow:0 4px 20px rgba(245,200,66,0.25); display:inline-block; cursor:pointer; border:none; }
   .btn-gold:hover { background:var(--gold-dark); transform:translateY(-2px); }
   .btn-ghost { background:transparent; color:var(--cream); padding:.85rem 2rem; font-weight:500; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; border:1px solid rgba(250,245,233,0.25); transition:border-color .2s,color .2s; display:inline-block; }
   .btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
@@ -85,6 +85,13 @@
   .card-name { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:var(--cream); margin-bottom:.5rem; }
   .card-desc { font-size:0.8rem; color:var(--muted); line-height:1.6; margin-bottom:1.2rem; }
   .card-price { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:var(--gold); letter-spacing:0.04em; }
+  .card-price-list { list-style:none; margin-top:.5rem; }
+  .card-price-list li { display:flex; justify-content:space-between; font-size:0.8rem; color:var(--muted); padding:.25rem 0; border-bottom:1px solid rgba(250,245,233,0.06); }
+  .card-price-list li span { color:var(--gold); font-weight:600; }
+
+  /* FULL MENU IMAGE */
+  .menu-image-section { background:var(--black); padding:4rem 3rem; text-align:center; }
+  .menu-image-section img { max-width:800px; width:100%; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
 
   /* INFO BAND — gold bg, dark text */
   .info-band { background:var(--gold); display:grid; grid-template-columns:repeat(3,1fr); border-top:3px solid var(--gold-dark); }
@@ -101,12 +108,14 @@
   .hours-row .day { color:var(--cream); font-weight:600; }
   .hours-row .time { color:var(--muted); }
   .open-pill { background:var(--gold); color:var(--black); font-size:0.6rem; font-weight:700; letter-spacing:0.1em; padding:.15rem .5rem; border-radius:2px; margin-left:.5rem; vertical-align:middle; }
-  .order-side { display:flex; flex-direction:column; gap:1rem; }
+  .order-side { display:flex; flex-direction:column; gap:.8rem; }
   .order-side h3 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--cream); margin-bottom:.5rem; }
   .order-side p { font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:.5rem; }
+  .order-divider { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-top:.5rem; }
 
-  /* ORDER SECTION DIVIDERS */
-  .order-divider { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-top:.5rem; margin-bottom:-.2rem; }
+  /* SOCIAL */
+  .btn-facebook { background:#1877F2; color:#fff; padding:.85rem 2rem; font-weight:600; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:2px; display:inline-block; transition:background .2s,transform .15s; }
+  .btn-facebook:hover { background:#1464d8; transform:translateY(-2px); }
 
   /* FOOTER */
   footer { background:#050505; padding:2rem 3rem 6rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-top:1px solid rgba(245,200,66,0.1); }
@@ -115,6 +124,44 @@
   .foot-links { display:flex; gap:1.5rem; }
   .foot-links a { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:rgba(250,245,233,0.4); text-decoration:none; transition:color .2s; }
   .foot-links a:hover { color:var(--gold); }
+
+  /* ORDER POPUP */
+  .order-popup-overlay {
+    position:fixed; inset:0; z-index:500;
+    background:rgba(0,0,0,0.7); backdrop-filter:blur(4px);
+    display:flex; align-items:flex-end; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition:opacity .25s;
+  }
+  .order-popup-overlay.open { opacity:1; pointer-events:all; }
+  .order-popup {
+    background:var(--dark); border-radius:16px 16px 0 0;
+    padding:2rem; width:100%; max-width:480px;
+    border:1px solid rgba(245,200,66,0.2);
+    transform:translateY(100%); transition:transform .35s cubic-bezier(0.34,1.2,0.64,1);
+  }
+  .order-popup-overlay.open .order-popup { transform:translateY(0); }
+  .popup-title { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--cream); margin-bottom:.4rem; }
+  .popup-sub { font-size:0.8rem; color:var(--muted); margin-bottom:1.5rem; }
+  .popup-options { display:flex; flex-direction:column; gap:.75rem; }
+  .popup-option {
+    display:flex; align-items:center; gap:1rem;
+    background:var(--card); border-radius:8px; padding:1rem 1.2rem;
+    text-decoration:none; color:var(--cream);
+    border:1px solid rgba(250,245,233,0.08);
+    transition:border-color .2s, background .2s;
+  }
+  .popup-option:hover { border-color:var(--gold); background:#232323; }
+  .popup-option-icon { font-size:1.5rem; }
+  .popup-option-name { font-weight:600; font-size:0.9rem; color:var(--cream); display:block; }
+  .popup-option-desc { font-size:0.72rem; color:var(--muted); }
+  .popup-close {
+    margin-top:1.2rem; width:100%; padding:.75rem;
+    background:transparent; border:1px solid rgba(250,245,233,0.15);
+    color:var(--muted); border-radius:8px; font-size:0.82rem;
+    cursor:pointer; transition:border-color .2s, color .2s;
+  }
+  .popup-close:hover { border-color:var(--gold); color:var(--cream); }
 
   /* STICKY BAR */
   .sticky-bar {
@@ -128,7 +175,7 @@
     opacity:0; white-space:nowrap;
   }
   .sticky-bar.visible { transform:translateX(-50%) translateY(0); opacity:1; }
-  .sticky-btn { display:flex; flex-direction:column; align-items:center; gap:2px; padding:8px 18px; border-radius:50px; text-decoration:none; color:var(--cream); transition:background .2s,color .2s,transform .15s; }
+  .sticky-btn { display:flex; flex-direction:column; align-items:center; gap:2px; padding:8px 18px; border-radius:50px; text-decoration:none; color:var(--cream); transition:background .2s,color .2s,transform .15s; cursor:pointer; border:none; background:transparent; font-family:'DM Sans',sans-serif; }
   .sticky-btn:hover { background:rgba(245,200,66,0.12); transform:translateY(-2px); }
   .sticky-btn--primary { background:var(--gold); color:var(--black); }
   .sticky-btn--primary:hover { background:var(--gold-dark); color:var(--black); }
@@ -144,6 +191,7 @@
     .hero { padding:7rem 1.5rem 4rem; }
     .gallery { padding:3rem 1.5rem; }
     .menu { padding:4rem 1.5rem; }
+    .menu-image-section { padding:3rem 1.5rem; }
     .info-band { grid-template-columns:1fr; }
     .info-cell { border-right:none; border-bottom:2px solid rgba(0,0,0,0.12); }
     .bottom { grid-template-columns:1fr; padding:4rem 1.5rem; gap:3rem; }
@@ -167,7 +215,7 @@
     <li><a href="#bottom">Hours</a></li>
     <li><a href="#bottom">Order</a></li>
   </ul>
-  <a class="nav-cta" href="tel:+16102890159">Order Now</a>
+  <a class="nav-cta" href="tel:+16102890159">Call Us</a>
 </nav>
 
 <!-- HERO -->
@@ -176,8 +224,8 @@
   <h1>Real Halal.<br><em>Real Flavor.</em></h1>
   <p class="hero-sub">Platters, gyros, smashed burgers, and Nashville chicken — made fresh daily in Breinigsville, PA.</p>
   <div class="hero-actions">
-    <a class="btn-gold" href="#menu">See the Menu</a>
-    <a class="btn-ghost" href="#bottom">Order Pickup</a>
+    <button class="btn-gold" onclick="openOrder()">🛵 Order Now</button>
+    <a class="btn-ghost" href="#menu">See the Menu</a>
   </div>
   <div class="hero-stats">
     <div><span class="stat-label">Hours</span><span class="stat-value">11 AM – 11 PM Daily</span></div>
@@ -209,7 +257,6 @@
 </div>
 
 <!-- PHOTO GALLERY -->
-<!-- Upload food1.jpg food2.jpg food3.jpg food4.jpg to your GitHub repo and they appear here automatically -->
 <section class="gallery" id="gallery">
   <span class="section-eyebrow fade">Fresh Every Day</span>
   <h2 class="section-title fade">The Food</h2>
@@ -221,18 +268,128 @@
   </div>
 </section>
 
-<!-- MENU -->
+<!-- MENU CARDS -->
 <section class="menu" id="menu">
   <span class="section-eyebrow fade">What We Serve</span>
   <h2 class="section-title fade">The Menu</h2>
   <div class="menu-grid">
-    <div class="menu-card fade"><span class="card-tag">Signature</span><div class="card-name">Halal Platters</div><div class="card-desc">Chicken, lamb, falafel, or mixed over rice with salad, white sauce &amp; hot sauce.</div><div class="card-price">$11.99</div></div>
-    <div class="menu-card fade"><span class="card-tag">Street Style</span><div class="card-name">Gyros</div><div class="card-desc">Chicken, lamb, mixed, or falafel in warm pita with veggies &amp; sauce.</div><div class="card-price">$10.99</div></div>
-    <div class="menu-card fade"><span class="card-tag">Hot &amp; Crispy</span><div class="card-name">Nashville Sandwich</div><div class="card-desc">Crispy chicken, coleslaw, pickles, house sauce. Add fries +$1.99.</div><div class="card-price">$9.99</div></div>
-    <div class="menu-card fade"><span class="card-tag">Burgers</span><div class="card-name">Smashed Burgers</div><div class="card-desc">Premium Wagyu — Ok Smash, Green Smash, or Spicy Smash on a toasted bun.</div><div class="card-price">From $8.99</div></div>
-    <div class="menu-card fade"><span class="card-tag">Wings</span><div class="card-name">Chicken Wings</div><div class="card-desc">6, 9, or 12 pcs. Honey BBQ, Lemon Pepper, Mango Habanero, Buffalo, Garlic Parm.</div><div class="card-price">From $9.99</div></div>
-    <div class="menu-card fade"><span class="card-tag">Bowl</span><div class="card-name">Rice Bowls</div><div class="card-desc">Lettuce, salad, mozzarella, corn, rice, and your choice of protein.</div><div class="card-price">$12.99</div></div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Chicken</span>
+      <div class="card-name">Nashville Sandwich</div>
+      <div class="card-desc">Chicken breast, coleslaw, pickle, house sauce. Add fries +$1.99.</div>
+      <div class="card-price">$9.99</div>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Chicken</span>
+      <div class="card-name">Loaded Nashville Fries</div>
+      <div class="card-desc">Crunchy chicken, fries, cheese sauce, cilantro onion, choice of sauce.</div>
+      <div class="card-price">$12.99</div>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Chicken</span>
+      <div class="card-name">Chicken Tenders</div>
+      <div class="card-desc">Come with sliced bread and pickles. Add fries +$1.99.</div>
+      <ul class="card-price-list">
+        <li>1 pc <span>$3.49</span></li>
+        <li>2 pc <span>$6.49</span></li>
+        <li>3 pc <span>$9.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Burgers</span>
+      <div class="card-name">Smashed Burgers</div>
+      <div class="card-desc">Premium Wagyu beef. Ok Smash, Green Smash, or Spicy Smash on a toasted bun. Extra patty +$2.49.</div>
+      <ul class="card-price-list">
+        <li>Ok Smash <span>$8.99</span></li>
+        <li>Green Smash <span>$9.99</span></li>
+        <li>Spicy Smash <span>$9.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Steaks</span>
+      <div class="card-name">Cheese Steaks</div>
+      <div class="card-desc">Green peppers, onions, American cheese, seasoning, mayo.</div>
+      <ul class="card-price-list">
+        <li>Philly Cheese Steak <span>$10.99</span></li>
+        <li>Chicken Cheese Steak <span>$10.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Wings</span>
+      <div class="card-name">Chicken Wings</div>
+      <div class="card-desc">Honey BBQ, Lemon Pepper, Mango Habanero, Buffalo, or Garlic Parm.</div>
+      <ul class="card-price-list">
+        <li>6 pcs <span>$9.99</span></li>
+        <li>9 pcs <span>$13.99</span></li>
+        <li>12 pcs <span>$17.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Signature</span>
+      <div class="card-name">Halal Platters</div>
+      <div class="card-desc">Rice, meat, fries, salad &amp; sauce. Extra meat +$2.49. Pita bread +$1.99.</div>
+      <ul class="card-price-list">
+        <li>Chicken / Lamb / Mixed <span>$11.99</span></li>
+        <li>Falafel Platter <span>$11.99</span></li>
+        <li>Tenders Platter <span>$12.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Street Style</span>
+      <div class="card-name">Gyros</div>
+      <div class="card-desc">Pita bread, salad &amp; sauce. Chicken, falafel, lamb, or mixed.</div>
+      <div class="card-price">$10.99</div>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Bowl</span>
+      <div class="card-name">Rice Bowls</div>
+      <div class="card-desc">Lettuce, mixed salad, mozzarella, corn mix, rice. Choice of chicken, lamb, mixed, falafel, or tenders.</div>
+      <div class="card-price">$12.99</div>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Kids</span>
+      <div class="card-name">Kids Menu</div>
+      <div class="card-desc">Perfect for little ones.</div>
+      <ul class="card-price-list">
+        <li>6pc Nuggets w/ fries <span>$8.99</span></li>
+        <li>Little Smash Burger <span>$7.99</span></li>
+        <li>Little Chicken Sandwich <span>$7.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-card fade">
+      <span class="card-tag">Sides</span>
+      <div class="card-name">Sides &amp; Extras</div>
+      <div class="card-desc">Add fries $1.99 · Cheese fries $2.99</div>
+      <ul class="card-price-list">
+        <li>Falafel 6 pcs <span>$5.99</span></li>
+        <li>French Fries <span>$3.99</span></li>
+        <li>Cheese Fries <span>$4.49</span></li>
+        <li>Banana Pudding <span>$3.99</span></li>
+        <li>Choc Chip Brownie <span>$2.49</span></li>
+        <li>Baklava <span>$2.99</span></li>
+        <li>Can Soda <span>$1.99</span></li>
+      </ul>
+    </div>
+
   </div>
+</section>
+
+<!-- FULL MENU IMAGE -->
+<section class="menu-image-section fade">
+  <span class="section-eyebrow">Full Menu</span>
+  <h2 class="section-title" style="margin-bottom:2rem;">See Everything We Offer</h2>
+  <img src="menu1.jpg" alt="Village Guys Halal Full Menu" onerror="this.parentElement.style.display='none'">
 </section>
 
 <!-- INFO BAND -->
@@ -279,8 +436,9 @@
     <a class="btn-ghost" href="https://www.ubereats.com/store/village-guys-9225-hamilton-blvd/fq5zPbQkXPCaTVHojHMoSQ" target="_blank">🚗 Order on Uber Eats</a>
     <a class="btn-ghost" href="https://www.grubhub.com/restaurant/village-guys-9225-hamilton-boulevard-breinigsville/12857888" target="_blank">🍱 Order on Grubhub</a>
 
-    <span class="order-divider">Find Us</span>
+    <span class="order-divider">Find &amp; Follow Us</span>
     <a class="btn-ghost" href="https://maps.google.com/?q=5025+Hamilton+Blvd+Breinigsville+PA+18031" target="_blank">🗺 Get Directions</a>
+    <a class="btn-facebook" href="https://www.facebook.com/p/Village-Guys-Official-61583591858252/" target="_blank">📘 Follow on Facebook</a>
 
     <span class="order-divider">Reviews</span>
     <a class="btn-ghost" href="https://www.yelp.com/biz/village-guys-breinigsville" target="_blank">⭐ Read Reviews on Yelp</a>
@@ -299,6 +457,45 @@
   </div>
 </footer>
 
+<!-- ORDER POPUP -->
+<div class="order-popup-overlay" id="orderOverlay" onclick="closeOrderIfOutside(event)">
+  <div class="order-popup">
+    <div class="popup-title">Order Village Guys</div>
+    <div class="popup-sub">Choose how you want to order</div>
+    <div class="popup-options">
+      <a class="popup-option" href="tel:+16102890159">
+        <span class="popup-option-icon">📞</span>
+        <div>
+          <span class="popup-option-name">Call to Order</span>
+          <span class="popup-option-desc">Quick pickup by phone</span>
+        </div>
+      </a>
+      <a class="popup-option" href="https://www.doordash.com/store/village-guys-breinigsville-36488923/" target="_blank">
+        <span class="popup-option-icon">🛵</span>
+        <div>
+          <span class="popup-option-name">DoorDash</span>
+          <span class="popup-option-desc">Delivery or pickup</span>
+        </div>
+      </a>
+      <a class="popup-option" href="https://www.ubereats.com/store/village-guys-9225-hamilton-blvd/fq5zPbQkXPCaTVHojHMoSQ" target="_blank">
+        <span class="popup-option-icon">🚗</span>
+        <div>
+          <span class="popup-option-name">Uber Eats</span>
+          <span class="popup-option-desc">Delivery or pickup</span>
+        </div>
+      </a>
+      <a class="popup-option" href="https://www.grubhub.com/restaurant/village-guys-9225-hamilton-boulevard-breinigsville/12857888" target="_blank">
+        <span class="popup-option-icon">🍱</span>
+        <div>
+          <span class="popup-option-name">Grubhub</span>
+          <span class="popup-option-desc">Delivery or pickup</span>
+        </div>
+      </a>
+    </div>
+    <button class="popup-close" onclick="closeOrder()">Close</button>
+  </div>
+</div>
+
 <!-- STICKY BOTTOM NAV -->
 <div class="sticky-bar" id="stickyBar">
   <a class="sticky-btn" href="#menu">
@@ -309,10 +506,10 @@
     <span class="sticky-icon">⏰</span>
     <span class="sticky-label">Hours</span>
   </a>
-  <a class="sticky-btn sticky-btn--primary" href="tel:+16102890159">
-    <span class="sticky-icon">📞</span>
+  <button class="sticky-btn sticky-btn--primary" onclick="openOrder()">
+    <span class="sticky-icon">🛵</span>
     <span class="sticky-label">Order</span>
-  </a>
+  </button>
   <a class="sticky-btn" href="https://maps.google.com/?q=5025+Hamilton+Blvd+Breinigsville+PA+18031" target="_blank">
     <span class="sticky-icon">🗺</span>
     <span class="sticky-label">Directions</span>
@@ -348,6 +545,20 @@
     if (current === 0) btns[0].classList.add('sticky-active');
     if (current === 1) { btns[1].classList.add('sticky-active'); btns[3].classList.add('sticky-active'); }
   }, { passive: true });
+
+  // Order popup
+  function openOrder() {
+    document.getElementById('orderOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOrder() {
+    document.getElementById('orderOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeOrderIfOutside(e) {
+    if (e.target === document.getElementById('orderOverlay')) closeOrder();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOrder(); });
 </script>
 
 </body>
